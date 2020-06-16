@@ -5,6 +5,7 @@ import SignUp from '../Pages/SignUp'
 import Home from '../Pages/Home'
 import Profile from '../Pages/Profile'
 import Cart from '../Pages/Cart'
+import NewAddress from '../Components/NewAddress'
 
 const Routes = () => {
     return(
@@ -13,6 +14,8 @@ const Routes = () => {
                 <Route exact path="/"><Login /></Route>
 
                 <Route exact path="/cadastro"><SignUp /></Route>
+
+                <Route exact path="/novoendereco"><NewAddress /></Route>
 
                 <Route exact path="/home"><Home /></Route>
 
