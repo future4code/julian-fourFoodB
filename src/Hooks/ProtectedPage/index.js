@@ -11,5 +11,5 @@ export const useProtectedPage = () => {
         if(token === null || tokenSession === null){
             history.replace('/')
         }
-    }, [history])
+    }, [history, token, tokenSession])
 }

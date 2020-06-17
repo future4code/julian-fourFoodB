@@ -27,8 +27,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
 const SignUp = () => {
   const history = useHistory();
   const classes = useStyles();
@@ -71,8 +69,6 @@ const SignUp = () => {
     }
   }
 
-  
-
   return(
     <Container fixed>
       <img src={Logo} className={classes.logo}/>
@@ -102,6 +98,7 @@ const SignUp = () => {
               variant="outlined"
               label="E-mail"
               placeholder="email@email.com"
+
             />
           </Grid>
           <Grid item xs={12}>
@@ -192,4 +189,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignUp;

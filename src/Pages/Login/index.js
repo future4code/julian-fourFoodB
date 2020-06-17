@@ -1,8 +1,7 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { useStyles } from "./style";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import Logo from "../../Images/logo-future-eats-invert.png";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -12,37 +11,30 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useForm } from "../../Hooks/useForm";
-import { PrincipalButton } from '../../Themes'
-
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-  withoutLabel: {
-    marginTop: theme.spacing(3),
-  },
-  logo: {
-    height: "30vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  formWrapper: {
-    height: "70vh",
-  },
-  title: {
-    fontSize: "1.5em",
-  },
-}));
+import { PrincipalButton } from "../../Themes";
+import Typography from "@material-ui/core/Typography";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 const Login = () => {
+  const [open, setOpen] = useState(false);
+  const history = useHistory();
   const classes = useStyles();
-  const { form, onChange, clickShowPassword, mouseDownPassword } = useForm({
+  const {
+    form,
+    onChange,
+    clickShowPassword,
+    mouseDownPassword,
+    resetForm,
+  } = useForm({
     email: "",
     password: "",
     showPassword: false,
   });
+
+  const handleClose = () => setOpen(false);
 
   const handleInputChange = (event) => {
     const { value, name } = event.target;
@@ -50,28 +42,50 @@ const Login = () => {
     onChange(name, value);
   };
 
-  const handleClickShowPassword = () => {
-    clickShowPassword();
-  };
-
-  const handleMouseDownPassword = (event) => {
-    mouseDownPassword(event);
-  };
+  const handleClickShowPassword = () => clickShowPassword();
+  const handleMouseDownPassword = (event) => mouseDownPassword(event);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const body = {
+      email: form.email,
+      password: form.password,
+    };
+
+    axios
+      .post(
+        `https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/login`,
+        body
+      )
+      .then((response) => {
+        sessionStorage.setItem("token", response.data.token);
+        history.push("/home");
+      })
+      .catch((error) => {
+        setOpen(true);
+        resetForm();
+      });
   };
 
   return (
     <Grid container justify='center' alignItems='center'>
       <Grid item className={classes.logo} xs={11}>
+        <Snackbar open={open} autoHideDuration={9000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity='error'>
+            <AlertTitle>Erro</AlertTitle>
+            Dados incorretos!
+          </Alert>
+        </Snackbar>
         <img src={Logo} alt={"logo aplicativo"} />
       </Grid>
       <Grid item className={classes.formWrapper} xs={11}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <span className={classes.title}>Entrar</span>
+              <Typography variant='h5' align='center'>
+                Entrar
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -82,6 +96,7 @@ const Login = () => {
                 placeholder='email@email.com'
                 type='email'
                 name='email'
+                value={form.email}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -94,6 +109,10 @@ const Login = () => {
                   type={form.showPassword ? "text" : "password"}
                   value={form.password}
                   onChange={handleInputChange}
+                  inputProps={{
+                    pattern: "/^.{6,}$/",
+                    title: "A senha deve conter no mínimo 6 caracteres",
+                  }}
                   endAdornment={
                     <InputAdornment position='end'>
                       <IconButton
@@ -115,13 +134,20 @@ const Login = () => {
                 variant='contained'
                 fullWidth
                 disableElevation
-                color="primary"
+                color='primary'
+                type='submit'
               >
                 Entrar
               </PrincipalButton>
             </Grid>
             <Grid item xs={12}>
-              <span>Não possui cadastro? Clique aqui.</span>
+              <Typography
+                onClick={() => history.push("/cadastro")}
+                align='center'
+                className={classes.register}
+              >
+                Não possui cadastro? Clique aqui.
+              </Typography>
             </Grid>
           </Grid>
         </form>
