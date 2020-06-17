@@ -88,6 +88,10 @@ const SignUp = () => {
               variant="outlined"
               label="CPF"
               placeholder="000.000.000-00"
+              inputProps={{
+                pattern: "/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/",
+                title: "CPF inválido"
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -100,6 +104,10 @@ const SignUp = () => {
                 type={form.showPassword ? "text" : "password"}
                 value={form.password}
                 onChange={handleInputChange}
+                inputProps={{
+                  pattern: "[A-Za-z ]{6,}",
+                  title: "A senha deve conter pelo menos 6 caracteres"
+                }}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -124,6 +132,10 @@ const SignUp = () => {
                 type={form.showPassword ? "text" : "password"}
                 value={form.confirmPassword}
                 onChange={handleInputChange}
+                inputProps={{
+                  pattern: "[A-Za-z ]{6,}",
+                  title: "A senha deve conter pelo menos 6 caracteres"
+                }}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
