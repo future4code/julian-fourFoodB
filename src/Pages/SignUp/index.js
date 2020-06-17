@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -14,18 +15,22 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useForm } from "../../Hooks/useForm";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
-    logo: {
-        paddingTop: "24px",
-        paddingBottom: "16px"
-    },
-    title: {
-        padding: "12px"
-    },
-  }));
+  logo: {
+    paddingTop: "24px",
+    paddingBottom: "16px"
+  },
+  title: {
+    padding: "12px"
+  },
+}));
+
+
 
 const SignUp = () => {
+  const history = useHistory();
   const classes = useStyles();
   const { form, onChange, clickShowPassword, mouseDownPassword } = useForm({
     name: "",
@@ -36,6 +41,21 @@ const SignUp = () => {
     showPassword: false,
   });
 
+  const signup = () => {
+    const body = {
+      name: form.name,
+      email: form.email,
+      cpf: form.cpf,
+      password: form.password
+    }
+
+    axios.post(`https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/signup`, body).then(response => {
+      console.log(response)
+      window.localStorage.setItem('token', response.data.token)
+      history.push('/novoendereco')
+    })
+  }
+
   const handleInputChange = (event) => {
     const { value, name } = event.target;
 
@@ -44,8 +64,10 @@ const SignUp = () => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    console.log(form)
+    signup()
   }
+
+  
 
   return(
     <Container fixed>
@@ -88,10 +110,10 @@ const SignUp = () => {
               variant="outlined"
               label="CPF"
               placeholder="000.000.000-00"
-              inputProps={{
-                pattern: "/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/",
-                title: "CPF inválido"
-              }}
+              // inputProps={{
+              //   pattern: "/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/",
+              //   title: "CPF inválido"
+              // }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -104,10 +126,10 @@ const SignUp = () => {
                 type={form.showPassword ? "text" : "password"}
                 value={form.password}
                 onChange={handleInputChange}
-                inputProps={{
-                  pattern: "[A-Za-z ]{6,}",
-                  title: "A senha deve conter pelo menos 6 caracteres"
-                }}
+                // inputProps={{
+                //   pattern: "[A-Za-z ]{6,}",
+                //   title: "A senha deve conter pelo menos 6 caracteres"
+                // }}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -132,10 +154,10 @@ const SignUp = () => {
                 type={form.showPassword ? "text" : "password"}
                 value={form.confirmPassword}
                 onChange={handleInputChange}
-                inputProps={{
-                  pattern: "[A-Za-z ]{6,}",
-                  title: "A senha deve conter pelo menos 6 caracteres"
-                }}
+                // inputProps={{
+                //   pattern: "[A-Za-z ]{6,}",
+                //   title: "A senha deve conter pelo menos 6 caracteres"
+                // }}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
