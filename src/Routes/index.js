@@ -1,11 +1,11 @@
-import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Login from '../Pages/Login'
-import SignUp from '../Pages/SignUp'
-import Home from '../Pages/Home'
-import Profile from '../Pages/Profile'
-import Cart from '../Pages/Cart'
-import NewAddress from '../Components/NewAddress'
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Login from "../Pages/Login";
+import SignUp from "../Pages/SignUp";
+import Home from "../Pages/Home";
+import Profile from "../Pages/Profile";
+import Cart from "../Pages/Cart";
+import NewAddress from "../Components/NewAddress";
 
 const Routes = () => {
   return (
@@ -18,10 +18,14 @@ const Routes = () => {
         <Route exact path='/cadastro'>
           <SignUp />
         </Route>
-    
-                <Route exact path="/novoendereco"><NewAddress /></Route>
 
-                <Route exact path="/home"><Home /></Route>
+        <Route exact path='/novoendereco'>
+          <NewAddress />
+        </Route>
+
+        <Route exact path='/home'>
+          <Home />
+        </Route>
 
         <Route exact path='/perfil'>
           <Profile />
