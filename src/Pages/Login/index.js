@@ -16,7 +16,8 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
-import { Alert, AlertTitle } from "@material-ui/lab";
+import Alert from '@material-ui/lab/Alert'
+import AlertTitle from "@material-ui/lab/AlertTitle";
 
 const Login = () => {
   const [open, setOpen] = useState(false);
