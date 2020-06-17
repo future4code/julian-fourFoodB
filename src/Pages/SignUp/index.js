@@ -158,10 +158,10 @@ const SignUp = () => {
                 type={form.showPassword ? "text" : "password"}
                 value={form.confirmPassword}
                 onChange={handleInputChange}
-                // inputProps={{
-                //   pattern: "[A-Za-z0-9]{6,}",
-                //   title: "A senha deve conter pelo menos 6 caracteres"
-                // }}
+                inputProps={{
+                  pattern: "[A-Za-z0-9]{6,}",
+                  title: "A senha deve conter pelo menos 6 caracteres"
+                }}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
