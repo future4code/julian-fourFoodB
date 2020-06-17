@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useForm } from "../../Hooks/useForm";
-import { red } from "@material-ui/core/colors";
+import { PrincipalButton } from '../../Themes'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -20,15 +20,6 @@ const useStyles = makeStyles((theme) => ({
   },
   withoutLabel: {
     marginTop: theme.spacing(3),
-  },
-  button: {
-    height: theme.spacing(6),
-    backgroundColor: "#e8222e",
-    textTransform: "none",
-    fontSize: 18,
-    "&:hover": {
-      backgroundColor: red[700],
-    },
   },
   logo: {
     height: "30vh",
@@ -120,14 +111,14 @@ const Login = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <Button
+              <PrincipalButton
                 variant='contained'
                 fullWidth
                 disableElevation
-                className={classes.button}
+                color="primary"
               >
                 Entrar
-              </Button>
+              </PrincipalButton>
             </Grid>
             <Grid item xs={12}>
               <span>Não possui cadastro? Clique aqui.</span>
