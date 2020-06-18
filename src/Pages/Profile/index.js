@@ -38,6 +38,11 @@ const Profile = () => {
                 window.alert(err)
             })
     }
+
+    const getHistory = () => {
+        axios
+            .get('https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/orders/history')
+    }
     return(
         <ProfileContainer>
             <TitleBar>Meu Perfil</TitleBar>

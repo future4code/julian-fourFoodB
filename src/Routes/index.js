@@ -6,6 +6,7 @@ import Home from "../Pages/Home";
 import Profile from "../Pages/Profile";
 import Cart from "../Pages/Cart";
 import NewAddress from "../Components/NewAddress";
+import Restaurant from "../Pages/Restaurant";
 
 const Routes = () => {
   return (
@@ -33,6 +34,10 @@ const Routes = () => {
 
         <Route exact path='/carrinho'>
           <Cart />
+        </Route>
+
+        <Route exact path="/home/:id">
+          <Restaurant />
         </Route>
 
         <Route path='/'>Erro 404 - página não encontrada</Route>
