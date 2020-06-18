@@ -40,6 +40,10 @@ const Routes = () => {
           <Cart />
         </Route>
 
+        <Route exact path="/home/:id">
+          <Restaurant />
+        </Route>
+
         <Route path='/'>Erro 404 - página não encontrada</Route>
       </Switch>
     </BrowserRouter>

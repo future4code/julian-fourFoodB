@@ -7,13 +7,14 @@ import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 
 const CardRestaurant = (props) => {
+
     return(
         <Card>
             <CardActionArea>
                 <CardMedia
                     component="img"
                     image={props.restaurantImage}
-                    title="Burger test"
+                    title={props.restaurantName}
                 />
                 <CardContent>
                     <Grid container>

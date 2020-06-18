@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles'
 import { useProtectedPage } from '../../Hooks/ProtectedPage'
@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid'
 import CardRestaurant from '../../Components/CardRestaurant'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab';
+import FilterContext from '../../Context/FilterContext'
 
 const Home = () => {
 
@@ -23,24 +24,66 @@ const Home = () => {
 
     const [restaurantList, setRestaurantList] = useState([])
 
-    const onChangeFilterTab = (event, newValue) => {
-        setFilterTab(newValue)
+    let filteredList = restaurantList
+
+    if(filterTab === 0){
+        filteredList = filteredList.filter((restaurant) => {
+            return restaurant.category.toLowerCase() === "Hamburguer".toLowerCase()
+        })
+    }
+    if(filterTab === 1){
+        filteredList = filteredList.filter((restaurant) => {
+            return restaurant.category.toLowerCase() === "asiática".toLowerCase()
+        })
+    }
+    if(filterTab === 2){
+        filteredList = filteredList.filter((restaurant) => {
+            return restaurant.category.toLowerCase() === "italiana".toLowerCase()
+        })
+    }
+    if(filterTab === 3){
+        filteredList = filteredList.filter((restaurant) => {
+            return restaurant.category.toLowerCase() === "mexicana".toLowerCase()
+        })
+    }
+    if (filterTab === 4) {
+        filteredList = filteredList.filter((restaurant) => {
+            return restaurant.category.toLowerCase() === "Baiana".toLowerCase()
+        })
     }
 
-    // useEffect(() => {
-    //     axios
-    //         .get('https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants', {
-    //             headers: {
-    //                 Auth: token,
-    //             }
-    //         })
-    //         .then(response => {
-    //             console.log(response.data)
-    //         })
-    //         .catch(err => {
-    //             window.alert(err)
-    //         })
-    // }, [])
+    const onChangeFilterTab = (event, newValue) => {
+        if(newValue === filterTab){
+            setFilterTab(null)
+        }else{
+            setFilterTab(newValue)
+        }
+        
+    }
+
+    useEffect(() => {
+        getRestaurants()
+    }, [])
+
+    const getRestaurants = () => {
+        axios
+            .get('https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants', {
+                headers: {
+                    Auth: token,
+                }
+            })
+            .then(response => {
+                setRestaurantList(response.data.restaurants)
+            })
+            .catch(err => {
+                window.alert(err)
+            })
+    }
+
+    const goToDetails = () => {
+        history.push('/home/:id')
+    }
+
 
     return (
         <div>
@@ -60,33 +103,29 @@ const Home = () => {
                     variant="scrollable"
                     indicatorColor="none"
                 >
-                    <Tab value={"Burger"} label="Burger"></Tab>
+                    <Tab label="Hamburguer"></Tab>
                     <Tab label="Asiática"></Tab>
-                    <Tab label="Massas"></Tab>
+                    <Tab label="Italiana"></Tab>
+                    <Tab label="Mexicana"></Tab>
+                    <Tab label="Baiana"></Tab>
                 </Tabs>
 
-                <Grid container spacing={2}>
+                <Grid container spacing={2}>                    
 
-                    <Grid item spacing={2}>
+                    {filteredList.map((restaurant) => {
+                        return <Grid item onClick={goToDetails}>
 
-                        <CardRestaurant
-                            restaurantImage="https://ogimg.infoglobo.com.br/in/24134237-8b6-4ef/FT1086A/652/b_de_burger_out-8.jpg"
-                            restaurantName="Burger"
-                            deliveryTime="50-60 mins"
-                            freteValue="6,00"
-                        />
+                            <CardRestaurant
+                                restaurantImage={restaurant.logoUrl}
+                                restaurantName={restaurant.name}
+                                deliveryTime={restaurant.deliveryTime + " mins"}
+                                freteValue={restaurant.shipping}
+                            />
 
-                    </Grid>
+                        </Grid>
+                    })}
 
-                    <Grid item >
-
-                        <CardRestaurant
-                            restaurantImage="https://ogimg.infoglobo.com.br/in/24134237-8b6-4ef/FT1086A/652/b_de_burger_out-8.jpg"
-                            restaurantName="Burger"
-                            deliveryTime="50-60 mins"
-                            freteValue="6,00"
-                        />
-                    </Grid>
+                    
                 </Grid>
 
             </Container>
