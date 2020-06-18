@@ -8,8 +8,8 @@ export const useProtectedPage = () => {
     const tokenSession = sessionStorage.getItem('token')
 
     useEffect(() => {
-        if(token === null || tokenSession === null){
+        if(token === null && tokenSession === null){
             history.replace('/')
         }
-    }, [history, token, tokenSession])
+    }, [])
 }

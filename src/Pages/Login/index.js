@@ -60,7 +60,7 @@ const Login = () => {
         body
       )
       .then((response) => {
-        sessionStorage.setItem("token", response.data.token);
+        localStorage.setItem('token', response.data.token);
         history.push("/home");
       })
       .catch((error) => {
@@ -137,6 +137,7 @@ const Login = () => {
                 disableElevation
                 color='primary'
                 type='submit'
+                onClick={handleSubmit}
               >
                 Entrar
               </PrincipalButton>
