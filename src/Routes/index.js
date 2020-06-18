@@ -28,6 +28,10 @@ const Routes = () => {
           <Home />
         </Route>
 
+        <Route exact path='/restaurante/:restaurantId'>
+          <Restaurant />
+        </Route>
+
         <Route exact path='/perfil'>
           <Profile />
         </Route>
