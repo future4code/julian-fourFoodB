@@ -6,6 +6,7 @@ import Home from "../Pages/Home";
 import Profile from "../Pages/Profile";
 import Cart from "../Pages/Cart";
 import NewAddress from "../Components/NewAddress";
+import Restaurant from "../Pages/Restaurant";
 
 const Routes = () => {
   return (
@@ -25,6 +26,10 @@ const Routes = () => {
 
         <Route exact path='/home'>
           <Home />
+        </Route>
+
+        <Route exact path='/restaurante/:restaurantId'>
+          <Restaurant />
         </Route>
 
         <Route exact path='/perfil'>
