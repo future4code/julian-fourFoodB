@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { useProtectedPage } from "../../Hooks/ProtectedPage";
-import axios from "axios";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import CardRestaurant from "../../Components/CardRestaurant";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import FilterContext from "../../Context/FilterContext";
+import { makeStyles } from '@material-ui/core/styles'
+import { useProtectedPage } from '../../Hooks/ProtectedPage'
+import axios from 'axios'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import CardRestaurant from '../../Components/CardRestaurant'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab';
+import FilterContext from '../../Context/FilterContext'
+import FooterBar from '../../Components/FooterBar'
+import {HeaderTitle} from '../../Components/Header'
 
 const Home = () => {
   //useProtectedPage()

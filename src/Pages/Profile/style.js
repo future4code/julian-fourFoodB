@@ -1,14 +1,5 @@
 import styled from 'styled-components';
 
-export const ProfileContainer = styled.div` /* Container perfil */
-  width: 98vw;
-  margin: 0;
-  padding: 0;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
 
 export const TitleBar = styled.div` /* Barra título */
   width: 100%;
@@ -40,20 +31,6 @@ export const InfoContainer = styled.div` /* Container Nome, Email, CPF */
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-evenly;
-`
-
-export const P = styled.p` /* Parágrafo para exemplo */
-  margin: 0;
-  font-family: Roboto;
-  font-size: 16px;
-`
-
-export const EditButtonContainer = styled.div` /* Container botão edição Nome, Email, CPF */
-  width: 8%;
-  margin-top: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 `
 
 export const AddressContainer = styled.div`

@@ -1,35 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { useProtectedPage } from "../../Hooks/ProtectedPage";
+
+import React, { useState, useEffect } from 'react'
+import { useProtectedPage } from '../../Hooks/ProtectedPage'
 import {
-  ProfileContainer,
-  TitleBar,
-  PersonalDataContainer,
-  InfoContainer,
-  EditButtonContainer,
-  P,
-  AddressContainer,
-  DescriptionAddress,
-  InfoAddress,
-  Address,
-  HistoricContainer,
-  Historic,
-} from "../Profile/style";
-import EditIcon from "@material-ui/icons/Edit";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-/* import PersonIcon from '@material-ui/icons/Person';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import HomeIcon from '@material-ui/icons/Home'; */
+    TitleBar, PersonalDataContainer, InfoContainer, 
+    AddressContainer, DescriptionAddress, InfoAddress, Address, HistoricContainer, Historic
+} from '../Profile/style'
+import Container from '@material-ui/core/Container'
+import Typography from '@material-ui/core/Typography'
+import EditIcon from '@material-ui/icons/Edit';
+import axios from 'axios'
+import FooterBar from '../../Components/FooterBar'
+import {HeaderTitle} from '../../Components/Header'
 
 const Profile = () => {
-  const history = useHistory();
-  useProtectedPage();
+    useProtectedPage()
 
   let token = localStorage.getItem("token");
 
-  if (token === null) {
-    token = sessionStorage.getItem("token");
-  }
+    if (token === null) {
+        token = sessionStorage.getItem('token')
+    }
 
   const [userData, setUserData] = useState([]);
   const [orderHistory, setOrderHistory] = useState([]);
@@ -56,39 +46,49 @@ const Profile = () => {
       });
   };
 
-  const getHistory = () => {
-    axios.get(
-      "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/orders/history"
-    );
-  };
-  return (
-    <ProfileContainer>
-      <TitleBar>Meu Perfil</TitleBar>
+    const getHistory = () => {
+        axios
+            .get('https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/orders/history')
+    }
+    return (
+        <div>
+            <HeaderTitle titlePage="Meu perfil" />
 
-      <PersonalDataContainer>
-        <InfoContainer>
-          <P>{userData.name}</P>
-          <P>{userData.email}</P>
-          <P>{userData.cpf}</P>
-        </InfoContainer>
-        <EditButtonContainer>
-          <EditIcon />
-        </EditButtonContainer>
-      </PersonalDataContainer>
+            <Container>
+                <PersonalDataContainer>
+                    <InfoContainer>
+                        <Typography>{userData.name}</Typography>
+                        <Typography>{userData.email}</Typography>
+                        <Typography>{userData.cpf}</Typography>
+                    </InfoContainer>
+                    
+                        <EditIcon />
+                    
+                </PersonalDataContainer>
 
-      <AddressContainer>
-        <InfoAddress>
-          <DescriptionAddress>Endereço Cadastrado</DescriptionAddress>
-          <Address>{userData.address}</Address>
-        </InfoAddress>
-        <EditButtonContainer onClick={() => history.push("/novoendereco")}>
-          <EditIcon />
-        </EditButtonContainer>
-      </AddressContainer>
+                
+                    <InfoAddress>
+                        <DescriptionAddress>Endereço Cadastrado</DescriptionAddress>
+                        <Address>{userData.address}</Address>
+                    </InfoAddress>
+                    
+                        <EditIcon />
+                    
+                
 
-      <HistoricContainer>
-        <P>Histórico de Pedidos</P>
-      </HistoricContainer>
+                <HistoricContainer>
+                    <Typography>Histórico de Pedidos</Typography>
+                </HistoricContainer>
+
+                <Historic>
+                    Você não realizou nenhum pedido
+                </Historic>
+            </Container>
+
+            <FooterBar activeProfile="primary"/>
+        </div>
+    )
+}
 
       <Historic>Você não realizou nenhum pedido</Historic>
     </ProfileContainer>
