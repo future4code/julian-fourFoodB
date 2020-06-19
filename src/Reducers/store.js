@@ -1,7 +1,5 @@
 export const initialState = {
     cart: [], 
-    filter: null,
-    tabFilters: null
 }
 
 export const storeReducer = (state, action) => {
@@ -25,26 +23,15 @@ export const storeReducer = (state, action) => {
                     }
                     return product
                 })
+                
             }  
-            
-
+            return { ...state, cart: newCart };
         case "REMOVE_CART": 
             newCart = state.cart.filter(product => {
                 return product.id !== action.productId
             })
-
             return {...state, cart: newCart}
-
-        case "FILTER":
-            return{
-                ...state,
-                filter: action.filters
-            }
-
         default: 
-            return state
-            
+            return state     
     }
-
-
 }

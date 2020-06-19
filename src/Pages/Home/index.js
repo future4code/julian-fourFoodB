@@ -10,13 +10,12 @@ import Grid from '@material-ui/core/Grid'
 import CardRestaurant from '../../Components/CardRestaurant'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab';
-import FilterContext from '../../Context/FilterContext'
 import FooterBar from '../../Components/FooterBar'
 import {HeaderTitle} from '../../Components/Header'
 
 
 const Home = () => {
-  //useProtectedPage()
+  useProtectedPage()
 
   const token = localStorage.getItem("token");
 
@@ -130,7 +129,7 @@ const Home = () => {
                   restaurantImage={restaurant.logoUrl}
                   restaurantName={restaurant.name}
                   deliveryTime={restaurant.deliveryTime + " mins"}
-                  freteValue={restaurant.shipping}
+                  freteValue={restaurant.shipping.toFixed(2)}
                 />
               </Grid>
             );
