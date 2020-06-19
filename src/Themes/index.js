@@ -36,5 +36,6 @@ export const PrincipalButton = withStyles({
         "&:hover": {
             backgroundColor: red[700],
         },
+        textTransform: "none"
     }
 })(Button)
