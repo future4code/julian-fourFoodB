@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import { useProtectedPage } from '../../Hooks/ProtectedPage'
 import {
@@ -14,33 +15,36 @@ import {HeaderTitle} from '../../Components/Header'
 const Profile = () => {
     useProtectedPage()
 
-    let token = localStorage.getItem('token')
+  let token = localStorage.getItem("token");
 
     if (token === null) {
         token = sessionStorage.getItem('token')
     }
 
-    const [userData, setUserData] = useState([])
-    const [orderHistory, setOrderHistory] = useState([])
+  const [userData, setUserData] = useState([]);
+  const [orderHistory, setOrderHistory] = useState([]);
 
-    useEffect(() => {
-        getProfile()
-    })
+  useEffect(() => {
+    getProfile();
+  }, []);
 
-    const getProfile = () => {
-        axios
-            .get('https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/profile', {
-                headers: {
-                    auth: token
-                }
-            })
-            .then(response => {
-                setUserData(response.data.user)
-            })
-            .catch(err => {
-                window.alert(err)
-            })
-    }
+  const getProfile = () => {
+    axios
+      .get(
+        "https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/profile",
+        {
+          headers: {
+            auth: token,
+          },
+        }
+      )
+      .then((response) => {
+        setUserData(response.data.user);
+      })
+      .catch((err) => {
+        window.alert(err);
+      });
+  };
 
     const getHistory = () => {
         axios
@@ -86,4 +90,9 @@ const Profile = () => {
     )
 }
 
-export default Profile
+      <Historic>Você não realizou nenhum pedido</Historic>
+    </ProfileContainer>
+  );
+};
+
+export default Profile;
