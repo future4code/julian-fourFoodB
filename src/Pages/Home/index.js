@@ -14,6 +14,7 @@ import FilterContext from '../../Context/FilterContext'
 import FooterBar from '../../Components/FooterBar'
 import {HeaderTitle} from '../../Components/Header'
 
+
 const Home = () => {
   //useProtectedPage()
 
@@ -97,6 +98,7 @@ const Home = () => {
 
   return (
     <div>
+      <HeaderTitle titlePage="Ifuture"></HeaderTitle>
       <Container>
         <TextField
           label="Restaurante"
@@ -135,6 +137,7 @@ const Home = () => {
           })}
         </Grid>
       </Container>
+      <FooterBar activeHomePage="primary"/>
     </div>
   );
 };
