@@ -9,11 +9,14 @@ import NewAddress from "../Components/NewAddress";
 import Restaurant from "../Pages/Restaurant";
 
 const Routes = () => {
+
+  const token = localStorage.getItem('token')
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path='/'>
-          <Login />
+          {token !== null ? <Home /> : <Login />}
         </Route>
 
         <Route exact path='/cadastro'>

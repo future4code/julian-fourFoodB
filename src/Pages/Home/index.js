@@ -24,6 +24,8 @@ const Home = () => {
 
     const [restaurantList, setRestaurantList] = useState([])
 
+    const [inputFilter, setInputFilter] = useState('')
+
     let filteredList = restaurantList
 
     if(filterTab === 0){
@@ -49,6 +51,12 @@ const Home = () => {
     if (filterTab === 4) {
         filteredList = filteredList.filter((restaurant) => {
             return restaurant.category.toLowerCase() === "Baiana".toLowerCase()
+        })
+    }
+
+    if (inputFilter !== ''){
+        filteredList = filteredList.filter((restaurant) => {
+            return restaurant.name.toLowerCase().includes(inputFilter.toLowerCase())
         })
     }
 
@@ -94,6 +102,8 @@ const Home = () => {
                     label="Restaurante"
                     fullWidth
                     variant="outlined"
+                    value={inputFilter}
+                    onChange={event => setInputFilter(event.target.value)}
                 />
 
                 <Tabs
@@ -113,7 +123,7 @@ const Home = () => {
                 <Grid container spacing={2}>                    
 
                     {filteredList.map((restaurant) => {
-                        return <Grid item onClick={goToDetails}>
+                        return <Grid item onClick={() => goToDetails(restaurant.id)}>
 
                             <CardRestaurant
                                 restaurantImage={restaurant.logoUrl}
