@@ -90,9 +90,4 @@ const Profile = () => {
     )
 }
 
-      <Historic>Você não realizou nenhum pedido</Historic>
-    </ProfileContainer>
-  );
-};
-
 export default Profile;
