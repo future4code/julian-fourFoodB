@@ -11,6 +11,8 @@ import CardRestaurant from '../../Components/CardRestaurant'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab';
 import FilterContext from '../../Context/FilterContext'
+import FooterBar from '../../Components/FooterBar'
+import {HeaderTitle} from '../../Components/Header'
 
 const Home = () => {
 
@@ -95,6 +97,7 @@ const Home = () => {
 
     return (
         <div>
+            <HeaderTitle titlePage="Ifuture"/>
             
             <Container>
 
@@ -140,7 +143,7 @@ const Home = () => {
 
             </Container>
 
-
+            <FooterBar activeHomePage="primary"/>
 
         </div>
     )
