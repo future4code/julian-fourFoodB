@@ -8,6 +8,7 @@ import {
   Button,
   makeStyles,
 } from "@material-ui/core";
+import CardActionArea from '@material-ui/core/CardActionArea';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,12 +38,14 @@ const CardProduct = (props) => {
   return (
     <Grid item>
       <Card className={classes.root}>
+        <CardActionArea>
         <CardMedia
           className={classes.cover}
           component='img'
           image={props.foto}
           title='Prato jakaroo'
         />
+        </CardActionArea>
         <CardContent className={classes.content}>
           <Typography
             color='primary'
@@ -65,7 +68,7 @@ const CardProduct = (props) => {
             {props.preco}
           </Typography>
           <footer className={classes.footer}>
-            <Button color='primary' variant='outlined'>
+            <Button onClick={props.addProduct} color='primary' variant='outlined'>
               adicionar
             </Button>
           </footer>

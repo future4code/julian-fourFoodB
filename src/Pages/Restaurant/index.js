@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useProtectedPage } from "../../Hooks/ProtectedPage";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CardProduct from "../../Components/CardProduct";
@@ -14,6 +14,8 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { HeaderWithButton } from '../../Components/Header'
+import CartContext from '../../Context/CartContext'
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -47,11 +49,13 @@ const Restaurant = () => {
 
   const [restaurantDetails, setRestaurantDetails] = useState();
 
+  const cartContext = useContext(CartContext)
+
   const getRestaurantDetails = () => {
     axios
       .get(
         `https://us-central1-missao-newton.cloudfunctions.net/fourFoodB/restaurants/${
-          params.restaurantId
+        params.restaurantId
         }`,
         {
           headers: {
@@ -65,85 +69,89 @@ const Restaurant = () => {
       });
   };
 
+  const addProductToCart = (product) => {
+    cartContext.dispatch({ type: "ADD_CART", product: product})
+  }
+
   useEffect(() => {
     getRestaurantDetails();
     console.log(restaurantDetails);
   }, []);
 
   return (
-    <Container>
+    <div>
       {restaurantDetails === undefined ? (
         <p>Carregando...</p>
       ) : (
-        <Grid container spacing={2}>
-          <Grid item className={classes.header} xs={12}>
-            <IconButton className={classes.button}>
-              <ArrowBackIosIcon />
-            </IconButton>
-            <Typography variant="h5" align="center" component="span">
-              Restaurante
+          <div>
+            <HeaderWithButton titlePage="Restaurante" />
+            <Container>
+              <Grid container spacing={2}>
+
+                <Grid item>
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cover}
+                      component="img"
+                      image={restaurantDetails.logoUrl}
+                      title="Logotipo"
+                    />
+                    <CardContent>
+                      <Typography
+                        gutterBottom
+                        color="primary"
+                        variant="h5"
+                        component="h2"
+                      >
+                        {restaurantDetails.name}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        {restaurantDetails.category}
+                      </Typography>
+                      <Typography
+                        className={classes.text}
+                        variant="body2"
+                        color="textSecondary"
+                        component="span"
+                      >
+                        {restaurantDetails.deliveryTime} min
+                </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="span"
+                      >
+                        Frete: R$ {restaurantDetails.shipping}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        {restaurantDetails.address}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Refeição
             </Typography>
-          </Grid>
-          <Grid item>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cover}
-                component="img"
-                image={restaurantDetails.logoUrl}
-                title="Logotipo"
-              />
-              <CardContent>
-                <Typography
-                  gutterBottom
-                  color="primary"
-                  variant="h5"
-                  component="h2"
-                >
-                  {restaurantDetails.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {restaurantDetails.category}
-                </Typography>
-                <Typography
-                  className={classes.text}
-                  variant="body2"
-                  color="textSecondary"
-                  component="span"
-                >
-                  {restaurantDetails.deliveryTime} min
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="span"
-                >
-                  Frete: R$ {restaurantDetails.shipping}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {restaurantDetails.address}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Typography gutterBottom variant="h5" component="h2">
-              Refeição
-            </Typography>
-          </Grid>
-          {restaurantDetails.products.map(product => {
-            return (
-              <CardProduct
-                preco={"R$ " + product.price.toFixed(2)}
-                id={product.id}
-                foto={product.photoUrl}
-                nome={product.name}
-                descricao={product.desciption}
-              />
-            );
-          })}
-        </Grid>
-      )}
-    </Container>
+                </Grid>
+                {restaurantDetails.products.map(product => {
+                  return (
+                    <CardProduct
+                      preco={"R$ " + product.price.toFixed(2)}
+                      id={product.id}
+                      foto={product.photoUrl}
+                      nome={product.name}
+                      descricao={product.desciption}
+                      addProduct={() => addProductToCart(product)}
+                    />
+                  );
+                })}
+              </Grid>
+            </Container>
+          </div>
+        )}
+    </div>
+
   );
 };
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,8 +22,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+
 export const HeaderTitle = (props) => {
     const classes = useStyles()
+
     return (
         <Paper className={classes.margin} elevation={1} square>
             <Typography variant="body1" align="center" className={classes.root}>{props.titlePage}</Typography>
@@ -32,9 +36,17 @@ export const HeaderTitle = (props) => {
 
 export const HeaderWithButton = (props) => {
     const classes = useStyles()
+    const history = useHistory()
+
+    const goBack = () => {
+        history.goBack()
+    }
+
     return (
-        <Paper  variant="outlined" elevation={0} square>
-            <IconButton className={classes.floating} edge="start"><ArrowBackIosIcon /></IconButton>
+        <Paper variant="outlined" elevation={1} square>
+            <IconButton className={classes.floating} edge="start" onClick={() => goBack()}>
+                <ArrowBackIosIcon />
+            </IconButton>
             <Typography variant="body1" align="center" className={classes.root}>{props.titlePage}</Typography>
         </Paper>
     )

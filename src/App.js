@@ -3,7 +3,7 @@ import Routes from './Routes'
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import './App.css';
-import FilterContext from './Context/FilterContext'
+import CartContext from './Context/CartContext'
 import { storeReducer, initialState } from './Reducers/store'
 
 const theme = createMuiTheme({
@@ -21,11 +21,11 @@ function App() {
 
   return (
     <div className="App">
-      <FilterContext.Provider value={{ filter: state.filter, dispatch: dispatch }}>
+      <CartContext.Provider value={{ cart: state.cart, dispatch: dispatch }}>
         <ThemeProvider theme={theme}>
           <Routes />
         </ThemeProvider >
-      </FilterContext.Provider>
+      </CartContext.Provider>
     </div>
   );
 }
