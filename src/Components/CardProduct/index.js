@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Grid,
   Typography,
   Card,
   CardContent,
@@ -9,26 +8,14 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    minHeight: "15vh",
-    borderRadius: "10px",
+  cover: {
+    width: 151,
   },
   content: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  text: {
-    paddingBottom: theme.spacing(1),
-  },
-  footer: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  cover: {
-    width: 110,
+    flex: '1 0 auto',
   },
 }));
 
@@ -36,44 +23,42 @@ const CardProduct = (props) => {
   const classes = useStyles();
 
   return (
-    <Grid item>
-      <Card className={classes.root}>
-        <CardActionArea>
-        <CardMedia
-          className={classes.cover}
-          component='img'
-          image={props.foto}
-          title='Prato jakaroo'
-        />
-        </CardActionArea>
-        <CardContent className={classes.content}>
-          <Typography
-            color='primary'
-            className={classes.text}
-            variant='h6'
-            component='h2'
-          >
-            {props.nome}
-          </Typography>
-          <Typography
-            className={classes.text}
-            variant='body2'
-            color='textSecondary'
-            component='p'
-          >
-            {props.descricao}
-          </Typography>
+    <Grid container spacing={2}>
+      <Grid item>
+        <Card>
+          <CardMedia
+            component='img'
+            image={props.foto}
+            title={props.nome}
+            className={classes.cover}
+          />
+          <div>
+          <CardContent className={classes.content}>
+            <Typography
+              color='primary'
+              variant='h6'
+              component='h2'
+            >
+              {props.nome}
+            </Typography>
+            <Typography
+              variant='body2'
+              color='textSecondary'
+              component='p'
+            >
+              {props.descricao}
+            </Typography>
 
-          <Typography className={classes.text} variant='h6' component='span'>
-            {props.preco}
-          </Typography>
-          <footer className={classes.footer}>
-            <Button onClick={props.addProduct} color='primary' variant='outlined'>
-              adicionar
+            <Typography variant='h6' component='span'>
+              {props.preco}
+            </Typography>
+              <Button onClick={props.addProduct} color='primary' variant='outlined'>
+                adicionar
             </Button>
-          </footer>
-        </CardContent>
-      </Card>
+          </CardContent>
+          </div>
+        </Card>
+      </Grid>
     </Grid>
   );
 };
