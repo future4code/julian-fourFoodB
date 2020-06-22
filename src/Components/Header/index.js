@@ -43,7 +43,7 @@ export const HeaderWithButton = (props) => {
     }
 
     return (
-        <Paper variant="outlined" elevation={1} square>
+        <Paper className={classes.margin} variant="outlined" elevation={1} square>
             <IconButton className={classes.floating} edge="start" onClick={() => goBack()}>
                 <ArrowBackIosIcon />
             </IconButton>

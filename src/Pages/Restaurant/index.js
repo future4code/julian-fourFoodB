@@ -38,8 +38,14 @@ const useStyles = makeStyles(theme => ({
     marginRight: "10%"
   },
   cover: {
-    height: 110
-  }
+    height: 110,
+  },
+  controls: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
 }));
 
 const Restaurant = () => {
@@ -70,7 +76,7 @@ const Restaurant = () => {
   };
 
   const addProductToCart = (product) => {
-    cartContext.dispatch({ type: "ADD_CART", product: product})
+    cartContext.dispatch({ type: "ADD_CART", product: product })
   }
 
   useEffect(() => {
@@ -86,9 +92,6 @@ const Restaurant = () => {
           <div>
             <HeaderWithButton titlePage="Restaurante" />
             <Container>
-              <Grid container spacing={2}>
-
-                <Grid item>
                   <Card className={classes.card}>
                     <CardMedia
                       className={classes.cover}
@@ -115,7 +118,7 @@ const Restaurant = () => {
                         component="span"
                       >
                         {restaurantDetails.deliveryTime} min
-                </Typography>
+                      </Typography>
                       <Typography
                         variant="body2"
                         color="textSecondary"
@@ -128,12 +131,10 @@ const Restaurant = () => {
                       </Typography>
                     </CardContent>
                   </Card>
-                </Grid>
-                <Grid item>
+
                   <Typography gutterBottom variant="h5" component="h2">
                     Refeição
-            </Typography>
-                </Grid>
+                  </Typography>
                 {restaurantDetails.products.map(product => {
                   return (
                     <CardProduct
@@ -146,7 +147,6 @@ const Restaurant = () => {
                     />
                   );
                 })}
-              </Grid>
             </Container>
           </div>
         )}
